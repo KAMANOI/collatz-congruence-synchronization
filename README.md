@@ -8,6 +8,20 @@ Establishes the algebraic mechanism governing synchronization jump heights in Co
 
 ---
 
+## Erratum (2026-11-12)
+
+**Theorem CC and Corollary 3.4 are withdrawn.** The claim "two consecutive jumps of the same height K >= 4 are impossible" is false.
+
+- Counterexample: 1643 -> 2465 -> 1849 -> 1387 -> 2081 has a_t = v2(n_t - 1) = 1, 5, 3, 1, 5, i.e. two consecutive gate-1 jumps of height 5.
+- Source of the error: step (C2) of the proof applies the cascade law q -> 3q to the jump step itself. After a height-K jump the odd core is q' = (3q + 1) / 2^K, which depends on the bits of q above 2^K, so it is not determined by q mod 2^K. The identity q_{t+L} = 3^L q_t does not hold. (For odd K the cascade also takes (K-1)/2 steps to reach gate 1, not floor((K-2)/2).)
+- The numerical statement in Remark 3.3 ("zero cases") could not be reproduced; repeated heights are common (5,620 of the 13,341 odd n0 < 30,000 whose orbit has a gate-1 jump of height >= 4 repeat such a height).
+- The nested congruence system of Section 4 uses the same transport identity and does not describe actual orbits.
+- Unaffected: Theorem JE (jump formula and residue condition) and ord_{2^K}(3) = 2^{K-2}.
+
+The original text presented a local obstruction as proved. That obstruction does not exist in the stated form. The PDF in `paper/` is the original, uncorrected version.
+
+---
+
 ## Overview
 
 Building on the odd-core decomposition nₜ = 1 + 2^{aₜ} qₜ, this paper proves that at renewal events (aₜ = 1), the next jump height is given by aₜ₊₁ = v₂(3qₜ + 1), and height K is achieved if and only if qₜ ≡ r_K (mod 2^K). The target residue class has density 2^{-K} — exponentially thin.
@@ -15,7 +29,7 @@ Building on the odd-core decomposition nₜ = 1 + 2^{aₜ} qₜ, this paper prov
 The central results are:
 
 - **Theorem JE** (Jump-Explosion Link): Jump height formula is exact; achieving height K requires qₜ in a residue class of density 2^{-K}
-- **Theorem CC** (Consecutive Cascade Conflict): Two consecutive jumps of the same height K ≥ 4 are impossible
+- **Theorem CC** (Consecutive Cascade Conflict): ~~Two consecutive jumps of the same height K ≥ 4 are impossible~~ — withdrawn, see Erratum
 - **Nested congruence chain**: ord_{2^K}(3) = 2^{K-2} and the cascade length L = ⌊(K−2)/2⌋ satisfies 3^L ≢ 1 (mod 2^K)
 
 ---
@@ -28,7 +42,7 @@ The central results are:
 |--------|--------|--------|
 | Theorem JE: exact jump height formula | 2-adic valuation | ✓ proved |
 | Theorem JE: height K requires qₜ ≡ r_K (mod 2^K), density 2^{-K} | Congruence | ✓ proved |
-| Theorem CC: consecutive same-height jumps impossible (K ≥ 4) | Order of 3 mod 2^K | ✓ proved |
+| Theorem CC: consecutive same-height jumps impossible (K ≥ 4) | Order of 3 mod 2^K | ✗ withdrawn — false, see Erratum |
 | ord_{2^K}(3) = 2^{K-2} | Group theory | ✓ proved |
 
 ---
@@ -38,7 +52,7 @@ The central results are:
 ```
 §1   Introduction and structure
 §2   Theorem JE: jump formula          ✓
-§3   Theorem CC: consecutive conflict   ✓
+§3   Theorem CC: consecutive conflict   ✗ withdrawn
 §4   The nested congruence chain        ✓
 §5   The core open problem
 §6   Summary
